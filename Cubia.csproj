@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{927C64C2-6514-47C8-B971-3CD5D04D7D08}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cubia</RootNamespace>
+    <AssemblyName>MineView</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <StartupObject>
+    </StartupObject>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ItemGroup>
+    <Reference Include="KopiLua, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Refrence\KopiLua.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK, Version=1.0.0.201, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Refrence\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="zlib.net, Version=1.0.3.0, Culture=neutral, PublicKeyToken=47d7877cb3620160">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Refrence\zlib.net.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MineViewer\Bookmarks.cs" />
+    <Compile Include="MineViewer\BookmarksForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MineViewer\BookmarksForm.Designer.cs">
+      <DependentUpon>BookmarksForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MineViewer\Engine\Cache.cs" />
+    <Compile Include="MineViewer\Engine\Color.cs" />
+    <Compile Include="MineViewer\Engine\Delay.cs" />
+    <Compile Include="MineViewer\Engine\Immutable.cs" />
+    <Compile Include="MineViewer\Engine\Iterator.cs" />
+    <Compile Include="MineViewer\Engine\Material.cs" />
+    <Compile Include="MineViewer\frmCredits.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MineViewer\frmCredits.Designer.cs">
+      <DependentUpon>frmCredits.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MineViewer\frmHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MineViewer\frmHelp.Designer.cs">
+      <DependentUpon>frmHelp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MineViewer\frmKey.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MineViewer\frmKey.Designer.cs">
+      <DependentUpon>frmKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MineViewer\frmSchemes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MineViewer\frmSchemes.Designer.cs">
+      <DependentUpon>frmSchemes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MineViewer\InputBox.cs" />
+    <Compile Include="MineViewer\Minecraft.cs" />
+    <Compile Include="MineViewer\MinecraftRenderer.cs" />
+    <Compile Include="MineViewer\NBT.cs" />
+    <Compile Include="MineViewer\Engine\Octree.cs" />
+    <Compile Include="MineViewer\Engine\Lazy.cs" />
+    <Compile Include="MineViewer\Program.cs" />
+    <Compile Include="MineViewer\Engine\Quadtree.cs" />
+    <Compile Include="MineViewer\Engine\RecursiveSpatialStructure.cs" />
+    <Compile Include="MineViewer\Engine\Renderable.cs" />
+    <Compile Include="MineViewer\Engine\Shape.cs" />
+    <Compile Include="MineViewer\Engine\StaticRenderer.cs" />
+    <Compile Include="MineViewer\Engine\StratifiedRenderer.cs" />
+    <Compile Include="MineViewer\Engine\Surface.cs" />
+    <Compile Include="MineViewer\Engine\Texture.cs" />
+    <Compile Include="MineViewer\Engine\Trace.cs" />
+    <Compile Include="MineViewer\Engine\VBO.cs" />
+    <Compile Include="MineViewer\Engine\Vector.cs" />
+    <Compile Include="MineViewer\Scheme.cs" />
+    <Compile Include="MineViewer\SMPInterface\frmConsole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MineViewer\SMPInterface\frmConsole.Designer.cs">
+      <DependentUpon>frmConsole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MineViewer\SMPInterface\frmSMPChat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MineViewer\SMPInterface\frmSMPChat.Designer.cs">
+      <DependentUpon>frmSMPChat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MineViewer\SMPInterface\frmSMPDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MineViewer\SMPInterface\frmSMPDetails.Designer.cs">
+      <DependentUpon>frmSMPDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MineViewer\SMPInterface\Packets\Chat.cs" />
+    <Compile Include="MineViewer\SMPInterface\Packets\Chunks.cs" />
+    <Compile Include="MineViewer\SMPInterface\Packets\HandShake.cs" />
+    <Compile Include="MineViewer\SMPInterface\Packets\Kick.cs" />
+    <Compile Include="MineViewer\SMPInterface\Packets\Player.cs" />
+    <Compile Include="MineViewer\SMPInterface\Packets\Useless.cs" />
+    <Compile Include="MineViewer\SMPInterface\SMPInterface.cs" />
+    <Compile Include="MineViewer\Window.cs" />
+    <Compile Include="MineViewer\WorldSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MineViewer\WorldSelect.Designer.cs">
+      <DependentUpon>WorldSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs" />
+    <Compile Include="Properties\Resources1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MineViewer\BookmarksForm.resx">
+      <DependentUpon>BookmarksForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MineViewer\frmCredits.resx">
+      <DependentUpon>frmCredits.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MineViewer\frmHelp.resx">
+      <DependentUpon>frmHelp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MineViewer\frmKey.resx">
+      <DependentUpon>frmKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MineViewer\frmSchemes.resx">
+      <DependentUpon>frmSchemes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MineViewer\SMPInterface\frmConsole.resx">
+      <DependentUpon>frmConsole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MineViewer\SMPInterface\frmSMPChat.resx">
+      <DependentUpon>frmSMPChat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MineViewer\SMPInterface\frmSMPDetails.resx">
+      <DependentUpon>frmSMPDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MineViewer\WorldSelect.resx">
+      <DependentUpon>WorldSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MineViewer\mv_logo.ico" />
+    <Content Include="Resources\background.png" />
+    <Content Include="Resources\button.png" />
+    <Content Include="Resources\button_big.png" />
+    <Content Include="Resources\button_hover_big.png" />
+    <Content Include="Resources\credits_bg.png" />
+    <Content Include="Resources\credits_bg1.png" />
+    <Content Include="Resources\diamond.png" />
+    <Content Include="Resources\fade_left.png" />
+    <Content Include="Resources\fade_right.png" />
+    <Content Include="Resources\help_bg.png" />
+    <Content Include="Resources\logo-wide.png" />
+    <Content Include="Resources\logo_trans_small.png" />
+    <Content Include="Resources\logo_trans_small1.png" />
+    <Content Include="Resources\minecraft-blocks-dirt.png" />
+    <Content Include="Resources\mv_logo.png" />
+    <Content Include="Resources\sidebar.png" />
+    <Content Include="Resources\xia_trans.png" />
+  </ItemGroup>
+</Project>

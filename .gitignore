@@ -1,0 +1,11 @@
+/bin
+/obj
+/Debug
+/Release
+*/bin
+*/obj
+*.userprefs
+*.user
+*.ncb
+/MineViewer/KopiLua/bin
+/MineViewer/KopiLua/obj
