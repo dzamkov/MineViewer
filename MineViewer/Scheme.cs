@@ -301,6 +301,8 @@ namespace MineViewer
             Names.Add("GlowStone", 89); Names.Add("Australium", 89); Names.Add("LightStone", 89);
             Names.Add("Portal", 90);
             Names.Add("Cake", 92);
+            Names.Add("Repeater", 93); Names.Add("RepeaterOff", 93);
+            Names.Add("RepeaterOn", 94);
         }
 
         private Dictionary<byte, IMaterial> _Materials;
