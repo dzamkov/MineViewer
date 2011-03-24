@@ -72,7 +72,7 @@ namespace MineViewer
                     catch (Exception ex)
                     {
                         MessageBox.Show("An error has occurred and the error contents has been dumped to \"error.txt\"\nPlease report this bug on bugs.xiatek.org (please make sure it has not been posted yet)", "Unhandeled Error");
-                        File.AppendAllText("error.txt", "ERROR:\n" + ex.Message + "\nSTACKTRACE:\n" + ex.StackTrace);
+                        File.AppendAllText("error.txt", "\nERROR:\n" + ex.Message + "\nSTACKTRACE:\n" + ex.StackTrace);
                     }
 #endif
                 }

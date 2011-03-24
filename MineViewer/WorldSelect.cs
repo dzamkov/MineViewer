@@ -80,13 +80,14 @@ namespace MineViewer
             {
                 DoneOne = true;
                 string name = worldinfo.Name;
+                string fn = worldinfo.FullName;
                 Button btn = new Button();
                 btn.Size = new Size(200, 25);
                 btn.Text = name;
                 btn.UseVisualStyleBackColor = true;
                 btn.Click += delegate
                 {
-                    this.Select(worldinfo.FullName);
+                    this.Select(fn);
                 };
                 flowLayoutPanel.Controls.Add(btn);
             }
