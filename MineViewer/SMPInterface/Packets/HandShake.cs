@@ -18,14 +18,14 @@ namespace MineViewer.SMPPackets
         {
             SMPInterface.Subscribe(SMPInterface.PacketTypes.Handshake, Call);
         }
-        public static int ProtoclVersion = 8;
+        public static int ProtoclVersion = 9;
         private static void Call()
         {
             SMPInterface.Reader.ReadByte();
             SMPInterface.Debug("Handshake (0x02)" + "\n");
 
             string ConnectionHash = SMPInterface.Reader.ReadString();
-            SMPInterface.Debug("Got connection hash: " + ConnectionHash + "\n");
+            SMPInterface.Debug("Got connection hash, length: " + ConnectionHash.Length.ToString() + "\n");
             if (ConnectionHash != "-")
             {
                 if (!SMPInterface.AuthConnect(SMPInterface.CaseUsername, ConnectionHash))
