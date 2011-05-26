@@ -25,8 +25,8 @@ namespace MineViewer
             try
             {
                 string path = Application.StartupPath + Path.DirectorySeparatorChar + "scheme.lua";
-                
-                schemes = Scheme.Load(File.OpenRead(path));
+                FileStream str = File.OpenRead(path);
+                schemes = Scheme.Load(str);
                 if (!schemes.ContainsKey("Default"))
                 {
                     MessageBox.Show("Scheme.lua does not define a scheme named \"Default\"", "Scheme load error");
@@ -45,6 +45,7 @@ namespace MineViewer
             {
                 MessageBox.Show("Scheme.lua cannot be found", "Scheme load error");
             }
+            
 
             if (schemes != null)
             {
