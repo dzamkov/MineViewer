@@ -276,6 +276,8 @@ namespace MineViewer
             Names.Add("WoodenDoor", 64); Names.Add("WoodDoor", 64); Names.Add("Door", 64);
             Names.Add("Ladder", 65);
             Names.Add("Tracks", 66); Names.Add("MinecartTracks", 66); Names.Add("Rails", 66);
+            Names.Add("Booster", 27);
+            Names.Add("TrackPressurePad", 28); Names.Add("TrackPressurePlate", 28);
             Names.Add("CobblestoneStairs", 67); Names.Add("StoneStairs", 67);
             Names.Add("WallSign", 68); Names.Add("MountedSign", 68);
             Names.Add("Lever", 69); Names.Add("Switch", 69);
@@ -303,6 +305,13 @@ namespace MineViewer
             Names.Add("Cake", 92);
             Names.Add("Repeater", 93); Names.Add("RepeaterOff", 93);
             Names.Add("RepeaterOn", 94);
+            
+            Names.Add("Trapdoor", 96); Names.Add("TrapDoor", 96);
+            Names.Add("Bed", 26);
+            Names.Add("Web", 30);
+            Names.Add("TallGrass", 31); Names.Add("Grass", 31);
+            Names.Add("Shrubs", 32);
+            Names.Add("DeadShrubs", 32);
         }
 
         private Dictionary<byte, IMaterial> _Materials;

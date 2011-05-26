@@ -22,7 +22,7 @@ namespace MineViewer.SMPPackets
         private static void Call()
         {
             SMPInterface.Reader.ReadByte();
-            SMPInterface.Debug("Handshake (0x02)" + "\n");
+            SMPInterface.Debug("Got handshake\n");
 
             string ConnectionHash = SMPInterface.Reader.ReadString();
             SMPInterface.Debug("Got connection hash, length: " + ConnectionHash.Length.ToString() + "\n");

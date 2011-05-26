@@ -154,7 +154,7 @@ namespace MineViewer
                     try
                     {
                         
-                        using (FileStream fs = File.OpenRead(file))
+                        using (FileStream fs = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) //File.OpenRead(file))
                         {
                             NBTNamedTag<INBTData> dat = NBT.ReadChunk(fs, Pos);
                             NBTCompound level = (NBTCompound)(((NBTCompound)dat.Data).Data["Level"]).Data;
