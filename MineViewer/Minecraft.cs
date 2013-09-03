@@ -81,11 +81,11 @@ namespace MineViewer
             {
                 int size = ChunkXSize * ChunkYSize * ChunkZSize;
                 Chunk c = new Chunk(
-                                new byte[size],
-                                null, //new byte[size],
-                                null,
-                                false
-                        );
+                    new byte[size],
+                    null,  // new byte[size],
+                    null,
+                    false
+                );
                 return c;
             }
 
