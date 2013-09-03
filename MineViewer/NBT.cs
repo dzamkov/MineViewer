@@ -142,37 +142,55 @@ namespace MineViewer
                 case NBTDouble.TypeID:
                     return new NBTDouble() { Data = ReadDouble(Stream).GetValueOrDefault(0.0) };
                 case NBTByteArray.TypeID:
-                    int balen = ReadInt(Stream).GetValueOrDefault(0);
-                    byte[] buffer = new byte[balen];
-                    Stream.Read(buffer, 0, balen);
-                    return new NBTByteArray() { Data = buffer };
+                    {
+                        int balen = ReadInt(Stream).GetValueOrDefault(0);
+                        byte[] buffer = new byte[balen];
+                        Stream.Read(buffer, 0, balen);
+                        return new NBTByteArray() { Data = buffer };
+                    }
                 case NBTString.TypeID:
-                    return new NBTString() { Data = ReadString(Stream) };
+                    {
+                        return new NBTString() { Data = ReadString(Stream) };
+                    }
                 case NBTList.TypeID:
-                    byte subtype = ReadByte(Stream).GetValueOrDefault(0);
-                    int len = ReadInt(Stream).GetValueOrDefault(0);
-                    List<INBTData> data = new List<INBTData>();
-                    for (int t = 0; t < len; t++)
                     {
-                        data.Add(ReadUnamedAsType(Stream, subtype));
+                        byte subtype = ReadByte(Stream).GetValueOrDefault(0);
+                        int len = ReadInt(Stream).GetValueOrDefault(0);
+                        List<INBTData> data = new List<INBTData>();
+                        for (int t = 0; t < len; t++)
+                        {
+                            data.Add(ReadUnamedAsType(Stream, subtype));
+                        }
+                        return new NBTList() { Data = data, SubType = subtype };
                     }
-                    return new NBTList() { Data = data, SubType = subtype };
                 case NBTCompound.TypeID:
-                    Dictionary<string, NBTNamedTag<INBTData>> children = new Dictionary<string, NBTNamedTag<INBTData>>();
-                    while (true)
                     {
-                        byte typeid = ReadByte(Stream).GetValueOrDefault(0);
-                        if (typeid != 0)
+                        Dictionary<string, NBTNamedTag<INBTData>> children = new Dictionary<string, NBTNamedTag<INBTData>>();
+                        while (true)
                         {
-                            NBTNamedTag<INBTData> datum = ReadAsType(Stream, typeid);
-                            children.Add(datum.Name, datum);
+                            byte typeid = ReadByte(Stream).GetValueOrDefault(0);
+                            if (typeid != 0)
+                            {
+                                NBTNamedTag<INBTData> datum = ReadAsType(Stream, typeid);
+                                children.Add(datum.Name, datum);
+                            }
+                            else
+                            {
+                                break;
+                            }
                         }
-                        else
-                        {
-                            break;
-                        }
+                        return new NBTCompound() { Data = children };
                     }
-                    return new NBTCompound() { Data = children };
+                case NBTIntArray.TypeID:
+                    {
+                        int ialen = ReadInt(Stream).GetValueOrDefault(0);
+                        Int32[] buffer = new Int32[ialen];
+                        for (int i = 0; i < ialen; i++)
+                        {
+                            buffer[i] = ReadInt(Stream).GetValueOrDefault(0);
+                        }
+                        return new NBTIntArray() { Data = buffer };
+                    }
             }
             throw new NotImplementedException();
         }
@@ -403,6 +421,15 @@ namespace MineViewer
     {
         public byte[] Data;
         public const int TypeID = 7;
+    }
+
+    /// <summary>
+    /// Int32 array.
+    /// </summary>
+    public struct NBTIntArray : INBTData
+    {
+        public Int32[] Data;
+        public const int TypeID = 11;
     }
 
     /// <summary>
