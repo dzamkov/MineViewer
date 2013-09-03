@@ -60,6 +60,10 @@ namespace MineViewer
             this._Trans = Trans;
         }
 
+
+
+
+
         /// <summary>
         /// Represents a chunk of data in the minecraft format.
         /// </summary>
@@ -77,25 +81,36 @@ namespace MineViewer
             {
                 int size = ChunkXSize * ChunkYSize * ChunkZSize;
                 Chunk c = new Chunk(
-                        new byte[size],
-                        null, //new byte[size],
-                        null,
-                        false
-                    );
+                                new byte[size],
+                                null, //new byte[size],
+                                null,
+                                false
+                        );
                 return c;
             }
 
+
+            static public long MakeIndex(Vector<int> pos)
+            {
+                return pos.X + (pos.Z * ChunkXSize) + (pos.Y * ChunkXSize * ChunkZSize);
+            }
+
+
             public void UpdateBlock(Vector<int> pos, MinecraftBlock block)
             {
-                long ind = pos.Y + (pos.Z * ChunkYSize) + (pos.X * ChunkYSize * ChunkZSize);
+                long ind = MakeIndex(pos);
                 this._Blocks[ind] = block.Type;
                 //this._BlockLight = block.BlockLight;
                 //this._SkyLight = block.SkyLight;
             }
+
+
             public bool Trans;
+
+
             public MinecraftBlock Lookup(Vector<int> Location)
             {
-                int ind = Location.Y + (Location.Z * ChunkYSize) + (Location.X * ChunkYSize * ChunkZSize);
+                long ind = MakeIndex(Location);
                 if (_Blocks == null)
                     return new MinecraftBlock();
                 byte type = this._Blocks[ind];
@@ -113,23 +128,30 @@ namespace MineViewer
                 };
             }
 
+
             public Vector<int> Bound
             {
-                get 
+                get
                 {
                     return new Vector<int>(ChunkXSize, ChunkYSize, ChunkZSize);
                 }
             }
+
 
             public T Extend<T>() where T : class
             {
                 return this as T;
             }
 
+
             private byte[] _Blocks;
             private byte[] _BlockLight;
-            private byte[] _SkyLight; 
+            private byte[] _SkyLight;
         }
+
+
+
+
 
         /// <summary>
         /// Tries loading the chunk at the specified position. This is done automatically
@@ -142,30 +164,24 @@ namespace MineViewer
             {
                 chunk = SMPInterface.GetChunk(Pos, this._Trans);
             }
-            else if(!this._Chunks.TryGetValue(Pos, out chunk))
+            else if (!this._Chunks.TryGetValue(Pos, out chunk))
             {
                 long regionX = (long)Math.Floor((decimal)Pos.X / 32);
                 long regionZ = (long)Math.Floor((decimal)Pos.Y / 32);
                 string file = this._Source + Path.DirectorySeparatorChar + "region" + Path.DirectorySeparatorChar + "r." +
-                    Convert.ToString(regionX) + "." + Convert.ToString(regionZ) + ".mcr";
+                    Convert.ToString(regionX) + "." + Convert.ToString(regionZ) + ".mca";
 
                 if (File.Exists(file))
                 {
                     try
                     {
-                        
                         using (FileStream fs = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) //File.OpenRead(file))
                         {
                             NBTNamedTag<INBTData> dat = NBT.ReadChunk(fs, Pos);
                             NBTCompound level = (NBTCompound)(((NBTCompound)dat.Data).Data["Level"]).Data;
-                            
                             this._Chunks.Add(Pos,
-                               chunk = new Chunk(
-                                    ((NBTByteArray)(level.Data["Blocks"].Data)).Data,
-                                    ((NBTByteArray)(level.Data["BlockLight"].Data)).Data,
-                                    ((NBTByteArray)(level.Data["SkyLight"].Data)).Data,
-                                    this._Trans));
-                            
+                                chunk = ParseChunkFromNBT(level)
+                            );
                         }
                     }
                     catch
@@ -180,6 +196,40 @@ namespace MineViewer
             }
             return chunk;
         }
+
+
+
+
+        /// <summary>
+        /// Parses the NBT compound "level" tag into a chunk
+        /// </summary>
+        Chunk? ParseChunkFromNBT(NBTCompound level)
+        {
+            byte[] Blocks = new byte[16 * 1256 * 16];
+            byte[] BlockLight = new byte[16 * 256 * 16 / 2];
+            byte[] SkyLight = new byte[16 * 256 * 16 / 2];
+            const int BLOCKS_PER_SECTION = 16 * 16 * 16;
+            const int NIBBLES_PER_SECTION = 16 * 16 * 16 / 2;
+
+            // Parse each section:
+            NBTList Sections = (NBTList)(level.Data["Sections"].Data);
+            foreach (INBTData Section in Sections.Data)
+            {
+                NBTCompound CompS = (NBTCompound)Section;
+                int y = ((NBTByte)(CompS.Data["Y"].Data)).Data;
+                byte[] SectionBlocks = ((NBTByteArray)(CompS.Data["Blocks"].Data)).Data;
+                Buffer.BlockCopy(SectionBlocks, 0, Blocks, y * BLOCKS_PER_SECTION, BLOCKS_PER_SECTION);
+                byte[] SectionBlockLight = ((NBTByteArray)(CompS.Data["BlockLight"].Data)).Data;
+                Buffer.BlockCopy(SectionBlockLight, 0, BlockLight, y * NIBBLES_PER_SECTION, NIBBLES_PER_SECTION);
+                byte[] SectionSkyLight = ((NBTByteArray)(CompS.Data["BlockLight"].Data)).Data;
+                Buffer.BlockCopy(SectionSkyLight, 0, SkyLight, y * NIBBLES_PER_SECTION, NIBBLES_PER_SECTION);
+            }  // foreach Section
+            return new Chunk(Blocks, BlockLight, SkyLight, this._Trans);
+        }
+
+
+
+
 
         /// <summary>
         /// Unloads a chunk from memory.
@@ -262,12 +312,12 @@ namespace MineViewer
 
             public Vector<int> Bound
             {
-                get 
+                get
                 {
                     return new Vector<int>(
-                        this._Chunks.GetLength(0) * ChunkXSize,
-                        ChunkYSize,
-                        this._Chunks.GetLength(1) * ChunkZSize);
+                            this._Chunks.GetLength(0) * ChunkXSize,
+                            ChunkYSize,
+                            this._Chunks.GetLength(1) * ChunkZSize);
                 }
             }
 
@@ -299,9 +349,9 @@ namespace MineViewer
                 else
                 {
                     return chunk.Value.Lookup(new Vector<int>(
-                        chunkxloc,
-                        Location.Y,
-                        chunkyloc));
+                            chunkxloc,
+                            Location.Y,
+                            chunkyloc));
 
                 }
             }
@@ -320,7 +370,7 @@ namespace MineViewer
         public const int ChunkYSize = 1 << ChunkYDepth;
         public const int ChunkZSize = 1 << ChunkADepth;
         public const int ChunkADepth = 4;
-        public const int ChunkYDepth = 7;
+        public const int ChunkYDepth = 8;
     }
 
 }
