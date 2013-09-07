@@ -348,8 +348,8 @@ namespace MineViewer
             }
         }
 
-        public const int CHUNK_DEFLATE_MAX = 1024 * 64;  // 64KB limit for compressed chunks
-        public const int CHUNK_INFLATE_MAX = 1024 * 128; // 128KB limit for inflated chunks
+        public const int CHUNK_DEFLATE_MAX = 1024 * 512;   // 512 KiB limit for compressed chunks
+        public const int CHUNK_INFLATE_MAX = 1024 * 1024;  // 1024 KiB limit for inflated chunks
     }
 
     /// <summary>
