@@ -249,8 +249,8 @@ namespace MineViewer
                 Names.Add("Sandstone", 24);
                 Names.Add("NoteBlock", 25);
                 Names.Add("Bed", 26);
-                Names.Add("PoweredRail", 27);
-                Names.Add("DetectorRail", 28);
+                Names.Add("PoweredRail", 27); Names.Add("Booster", 27);
+                Names.Add("DetectorRail", 28); Names.Add("TrackPressurePad", 28); Names.Add("TrackPressurePlate", 28);
                 Names.Add("StickyPiston", 29);
                 Names.Add("Web", 30);
                 Names.Add("TallGrass", 31);
@@ -287,8 +287,6 @@ namespace MineViewer
                 Names.Add("WoodenDoor", 64); Names.Add("WoodDoor", 64); Names.Add("Door", 64);
                 Names.Add("Ladder", 65);
                 Names.Add("Tracks", 66); Names.Add("MinecartTracks", 66); Names.Add("Rails", 66);
-                Names.Add("Booster", 27);
-                Names.Add("TrackPressurePad", 28); Names.Add("TrackPressurePlate", 28);
                 Names.Add("CobblestoneStairs", 67); Names.Add("StoneStairs", 67);
                 Names.Add("WallSign", 68); Names.Add("MountedSign", 68);
                 Names.Add("Lever", 69); Names.Add("Switch", 69);
@@ -310,7 +308,7 @@ namespace MineViewer
                 Names.Add("Fence", 85);
                 Names.Add("Pumpkin", 86); Names.Add("LitPumpkin", 91);
                 Names.Add("NetherStone", 87); Names.Add("RedMossyCobbleStone", 87); Names.Add("HellStone", 87);
-                Names.Add("Mud", 88);
+                Names.Add("SoulSand", 88); Names.Add("Mud", 88); Names.Add("SlowSand", 88);
                 Names.Add("GlowStone", 89); Names.Add("Australium", 89); Names.Add("LightStone", 89);
                 Names.Add("Portal", 90);
                 Names.Add("Cake", 92);
@@ -318,7 +316,6 @@ namespace MineViewer
                 Names.Add("RepeaterOn", 94);
                 Names.Add("StainedGlass", 95);
                 Names.Add("Trapdoor", 96); Names.Add("TrapDoor", 96);
-
                 Names.Add("SilverfishEgg", 97);
                 Names.Add("StoneBricks", 98);
                 Names.Add("HugeBrownMushroom", 99);
